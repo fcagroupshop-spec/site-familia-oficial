@@ -139,21 +139,24 @@
                       
                       <div className="flex flex-col gap-6 pt-4 items-center lg:items-start relative z-30">
                         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                          <button onClick={() => openInstallModal('ios')} className="bg-black text-white px-6 py-3 rounded-2xl flex items-center gap-3 hover:scale-105 transition-all border border-white/10 shadow-xl group w-full sm:w-auto min-w-[200px]">
+                          
+                          {/* BOTÕES CORRIGIDOS: AGORA REDIRECIONAM PARA O APP.HTML */}
+                          <a href="app.html" className="bg-black text-white px-6 py-3 rounded-2xl flex items-center gap-3 hover:scale-105 transition-all border border-white/10 shadow-xl group w-full sm:w-auto min-w-[200px]" style={{ textDecoration: 'none' }}>
                             <Apple size={28} className="group-hover:text-blue-400" />
                             <div className="text-left leading-none">
                               <p className="text-[10px] uppercase font-bold text-slate-400 mb-1">Acessar Web App</p>
                               <p className="text-lg font-black tracking-tight">Para iPhone</p>
                             </div>
-                          </button>
+                          </a>
 
-                          <button onClick={() => openInstallModal('android')} className="bg-black text-white px-6 py-3 rounded-2xl flex items-center gap-3 hover:scale-105 transition-all border border-white/10 shadow-xl group w-full sm:w-auto min-w-[200px]">
+                          <a href="app.html" className="bg-black text-white px-6 py-3 rounded-2xl flex items-center gap-3 hover:scale-105 transition-all border border-white/10 shadow-xl group w-full sm:w-auto min-w-[200px]" style={{ textDecoration: 'none' }}>
                             <Smartphone size={28} className="group-hover:text-blue-400" />
                             <div className="text-left leading-none">
                               <p className="text-[10px] uppercase font-bold text-slate-400 mb-1">Acessar Web App</p>
                               <p className="text-lg font-black tracking-tight">Para Android</p>
                             </div>
-                          </button>
+                          </a>
+
                         </div>
                         
                         <button 
@@ -244,6 +247,48 @@
                 </div>
               </section>
 
+              {/* DOWNLOAD SECTION (RESTAURADA) */}
+              <section id="download" className="py-24 bg-white px-4">
+                <div className="max-w-4xl mx-auto">
+                  <div className="bg-slate-900 rounded-[4rem] p-10 md:p-20 text-center text-white relative overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
+                    
+                    <div className="relative z-10 space-y-12">
+                      <div className="space-y-6">
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">Comece a viver em harmonia.</h2>
+                        <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto">
+                          Instale o aplicativo agora e experimente todas as funcionalidades Pro gratuitamente por 7 dias.
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col md:flex-row gap-6 justify-center items-center relative z-30">
+                        <a href="app.html" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-3xl flex items-center gap-4 transition-all border border-white/10 w-full md:w-auto shadow-xl group cursor-pointer" style={{ textDecoration: 'none' }}>
+                          <Apple size={40} className="group-hover:text-blue-400 transition-colors" />
+                          <div className="text-left leading-none">
+                            <p className="text-[10px] uppercase font-bold text-slate-400 mb-1">Acessar Web App</p>
+                            <p className="text-2xl font-black tracking-tight">Para iPhone</p>
+                          </div>
+                        </a>
+                        
+                        <a href="app.html" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-3xl flex items-center gap-4 transition-all border border-white/10 w-full md:w-auto shadow-xl group cursor-pointer" style={{ textDecoration: 'none' }}>
+                          <Smartphone size={40} className="group-hover:text-blue-400 transition-colors" />
+                          <div className="text-left leading-none">
+                            <p className="text-[10px] uppercase font-bold text-slate-400 mb-1">Acessar Web App</p>
+                            <p className="text-2xl font-black tracking-tight">Para Android</p>
+                          </div>
+                        </a>
+                      </div>
+
+                      <div className="pt-6">
+                        <p className="text-slate-500 font-bold text-sm flex items-center justify-center gap-2">
+                           <ShieldCheck size={16} className="text-emerald-500" /> Instalação Direta e Segura
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
               {/* FOOTER */}
               <footer className="py-20 bg-slate-50 border-t border-slate-200 px-4">
                 <div className="max-w-7xl mx-auto text-center space-y-8">
@@ -255,9 +300,7 @@
                 </div>
               </footer>
 
-              {/* ========================================= */}
-              {/* MODAL DO VÍDEO - AQUI ESTÁ A CORREÇÃO!    */}
-              {/* ========================================= */}
+              {/* MODAL DO VÍDEO */}
               {isVideoModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-blue-950/90 backdrop-blur-sm">
                   <div className="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in duration-300 border border-white/10">
@@ -332,9 +375,10 @@
                       </div>
 
                       <div className="pt-2">
-                          <button onClick={() => setIsInstallModalOpen(false)} className="w-full bg-blue-900 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-blue-800 transition-colors flex justify-center items-center gap-2 group text-center cursor-pointer">
-                            Entendi <Check size={18} className="group-hover:scale-110 transition-transform"/>
-                          </button>
+                          {/* BOTÃO CORRIGIDO: AGORA É UM LINK QUE LEVA PARA O APP.HTML */}
+                          <a href="app.html" className="w-full bg-blue-900 text-white font-black py-4 rounded-2xl shadow-lg hover:bg-blue-800 transition-colors flex justify-center items-center gap-2 group text-center cursor-pointer" style={{ textDecoration: 'none' }}>
+                            Acessar Aplicativo Agora <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform"/>
+                          </a>
                       </div>
                     </div>
                   </div>
