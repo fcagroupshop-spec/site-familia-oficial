@@ -73,6 +73,9 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         const appId = 'familia-connect-pro';
+        
+        // --- SISTEMA DE VERSÃO PARA ATUALIZAÇÃO ---
+        const APP_VERSION = "1.0.1"; // Mude este número sempre que fizer atualizações importantes no código
 
         const BRAND_LOGO = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
         
@@ -207,6 +210,15 @@
                 window.open(url, '_blank');
             };
 
+            const forceUpdate = () => {
+                if(window.caches) {
+                    caches.keys().then(function(names) {
+                        for (let name of names) caches.delete(name);
+                    });
+                }
+                window.location.reload(true);
+            };
+
             const shareItemToWhatsApp = (prefix, itemDetails) => {
                 const text = `${prefix}\n\n${itemDetails}\n\n_Enviado via FamíliaConnect_ 🏠`;
                 const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
@@ -252,6 +264,7 @@
                     </div>
                   </div>
                   <div className="flex gap-2">
+                      <button onClick={forceUpdate} title="Procurar Atualizações" className="p-3.5 bg-white rounded-2xl shadow-md text-blue-500 hover:text-blue-600 hover:shadow-lg transition-all active:scale-90"><RefreshCw size={22}/></button>
                       <button onClick={handleShareWhatsApp} title="Convidar via WhatsApp" className="p-3.5 bg-white rounded-2xl shadow-md text-emerald-500 hover:text-emerald-600 hover:shadow-lg transition-all active:scale-90"><Share2 size={22}/></button>
                       <button onClick={() => { localStorage.clear(); window.location.reload(); }} title="Sair" className="p-3.5 bg-white rounded-2xl shadow-md text-slate-400 hover:text-red-500 hover:shadow-lg transition-all active:scale-90"><LogOut size={22}/></button>
                   </div>
@@ -983,6 +996,27 @@
           const [activeTab, setActiveTab] = useState('dashboard');
           const [loading, setLoading] = useState(true);
           const [statusMsg, setStatusMsg] = useState({ text: '', type: '' });
+
+          // Verificação de versão ao iniciar
+          useEffect(() => {
+              const currentLocalVersion = localStorage.getItem('fc_app_version');
+              if (currentLocalVersion !== APP_VERSION) {
+                  console.log(`Atualizando app da versão ${currentLocalVersion} para ${APP_VERSION}`);
+                  localStorage.setItem('fc_app_version', APP_VERSION);
+                  
+                  if(window.caches) {
+                      caches.keys().then(function(names) {
+                          for (let name of names) caches.delete(name);
+                      });
+                  }
+                  
+                  if (currentLocalVersion) { // Só recarrega se já tivesse uma versão antes (não for a primeira vez)
+                      setTimeout(() => {
+                          window.location.reload(true);
+                      }, 500);
+                  }
+              }
+          }, []);
 
           const [familyId, setFamilyId] = useState(() => localStorage.getItem('fc_familyId') || null);
           const [familyName, setFamilyName] = useState(() => localStorage.getItem('fc_familyName') || '');
